@@ -147,7 +147,7 @@ function jQueryAjax(){
 function debugCallback(response){
 	// ERROR: mydata was not defined in this function; mydata -> response
     // Print GeoJSON data
-	$(mydiv).append('GeoJSON data: ' + JSON.stringify(response));
+	$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(response));
 };
 
 // Function to print out GeoJSON file contents as a string
