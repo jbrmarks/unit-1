@@ -1,8 +1,9 @@
 // Authored by Joe Marks, 2019
 /*eslint-env browser*/
 
-//initialize function called when the script loads
+// Initialize function called when the script loads
 function initialize(){
+    // Call functions on loaded script
     cities();
     jQueryAjax();
     debugAjax();
@@ -76,7 +77,7 @@ function addEvents(){
 	$('table').on('click', clickme);
 };
 
-//function to create a table with cities and their populations
+// Function to create a table with cities and their populations
 function cities(){
     //define two arrays for cities and population
     var cityPop = [
@@ -142,22 +143,25 @@ function jQueryAjax(){
     console.log(mydata);
 }
 
+// A callback function to print out GeoJSON file contents as a string
 function debugCallback(response){
-	// ERROR: mydata not defined in this function
-    var mydata = response;
-	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+	// ERROR: mydata was not defined in this function; mydata -> response
+    // Print GeoJSON data
+	$(mydiv).append('GeoJSON data: ' + JSON.stringify(response));
 };
 
+// Function to print out GeoJSON file contents as a string
 function debugAjax(){
 	
-	var mydata;
+    // Variable to hold GeoJSON data, not needed, simply used response
+	//var mydata;
 
 	$.ajax("data/MegaCities.geojson", {
 		dataType: "json",
 		success: function(response){
-			// ERROR: mydata still had no value
-            mydata = response;
-			debugCallback(mydata);
+			// ERROR: mydata still had no value; mydata -> response
+            // Call callback function
+			debugCallback(response);
 		}
 	});
     // ERROR: Can not call mydata outside of callback function,
@@ -170,5 +174,5 @@ function debugAjax(){
 //$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
 
 
-//call the initialize function when the document has loaded
+// Call the initialize function when the document has loaded
 $(document).ready(initialize);
