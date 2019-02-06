@@ -4,6 +4,8 @@
 //initialize function called when the script loads
 function initialize(){
     cities();
+    jQueryAjax();
+    debugAjax();
 };
 
 // This function adds a city size column with values assigned based
@@ -119,6 +121,54 @@ function cities(){
     addColumns(cityPop);
     addEvents();
 };
+
+// Simple JQueryAjax method
+function jQueryAjax(){
+    // Define a variable to hold the data
+    var mydata;
+    
+    // Use jQuery ajax method to get MegaCities.geojson
+    $.ajax("data/MegaCities.geojson", {
+        dataType: "json",
+        success: function(response){
+            mydata = response;
+            
+            // Check the data inside the callback function
+            console.log(mydata);
+        }
+    });
+    
+    // Check the data outside the callback function
+    console.log(mydata);
+}
+
+function debugCallback(response){
+	// ERROR: mydata not defined in this function
+    var mydata = response;
+	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+};
+
+function debugAjax(){
+	
+	var mydata;
+
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json",
+		success: function(response){
+			// ERROR: mydata still had no value
+            mydata = response;
+			debugCallback(mydata);
+		}
+	});
+    // ERROR: Can not call mydata outside of callback function,
+    // will result in printing:
+    //    GeoJSON data:
+    //    undefined
+	//$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(mydata));
+};
+// ERROR: Can not call mydata outside of callback function
+//$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+
 
 //call the initialize function when the document has loaded
 $(document).ready(initialize);
